@@ -5,6 +5,8 @@ using UnityEngine;
 public class ItemInfo : ScriptableObject
 {
     [SerializeField]
+    private int _itemId;
+    [SerializeField]
     private string _description;
     [SerializeField]
     private string _name;
@@ -13,6 +15,7 @@ public class ItemInfo : ScriptableObject
     [SerializeField]
     private EItemType _itemType;
 
+    public int ItemId { get { return _itemId; } }
     public string Description { get { return _description; } private set { _description = value; } }
     public string Name { get { return _name; } private set { _name = value; } }
     public Sprite Icon { get { return _icon; } private set { _icon = value; } }

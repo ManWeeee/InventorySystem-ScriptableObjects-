@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c24196fd6e98154bb01a851d868f027, type: 3}
-  m_Name: WoodenSword
+  m_Name: WoodenPants
   m_EditorClassIdentifier: 
-  _itemId: 1
-  _description: Your great friend, despite the unreliability
-  _name: Wooden Sword
-  _icon: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
-  _itemType: 1
+  _itemId: 4
+  _description: They were used only ones
+  _name: Wooden Pants
+  _icon: {fileID: 21300000, guid: b8fb302c5768e334ca82005f50e58121, type: 3}
+  _itemType: 0

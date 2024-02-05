@@ -60,7 +60,7 @@ public class InventorySlot : MonoBehaviour
                         _iconFrame.color = new Color(1, 0, 0, 0.5f);
                         return;
                     }
-                case EItemType.Food:
+                case EItemType.Consumable:
                     {
                         _iconFrame.color = new Color(0, 1, 0, 0.5f);
                         return;
@@ -80,8 +80,7 @@ public class InventorySlot : MonoBehaviour
         if (_inventoryItem)
         {
             _inventoryItem.SetActive(true);
-            Instantiate(_inventoryItem, PlayerMouseControll.Instance.transform.position, Quaternion.identity);
-            Destroy(_inventoryItem);
+            _inventoryItem.transform.position = PlayerMouseControll.Instance.transform.position;
             SetItem(null);
             ShowDropDownMenu();
         }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EItemType
+public enum EArmorType
 {
-    Armor,
-    Weapon,
-    Consumable
+    Head,
+    Body,
+    Legs
 }

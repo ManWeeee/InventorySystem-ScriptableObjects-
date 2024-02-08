@@ -1,54 +1,52 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
+    private Button _inventorySlotBtn;
+
     [SerializeField]
-    GameObject _inventoryItem;
-    [SerializeField]
-    Item _item;
+    private bool _isActive = false;
 
     [SerializeField]
     Image _iconImage;
     [SerializeField]
     Image _iconFrame;
     [SerializeField]
-    Image _dropDownPanel;
+    GameObject _dropDownPanel;
 
-    bool _isActive = false;
-
-    public Item Item { get { return _item; } }
+    public Button InventorySlotBtn => _inventorySlotBtn;
 
     private void Start()
     {
-        SetItemSprite();
-        SetItemFrame();
+        _isActive = false;
+        _inventorySlotBtn = GetComponent<Button>();
+        _inventorySlotBtn.onClick.AddListener(ShowDropDownMenu);
     }
 
-    public void SetItem(GameObject item)
+    public void SetItem(Item item)
     {
-        _inventoryItem = item;
-        _item = item != null ? item.GetComponent<Item>() : null;
-        SetItemSprite();
-        SetItemFrame();
+        SetItemSprite(item);
+        SetItemFrame(item);
     }
 
-    public void SetItemSprite()
+    public void SetItemSprite(Item item)
     {
-        if (_item == null)
+        if (item == null)
         {
             _iconImage.color = new Color(1, 1, 1, 0);
             return;
         }
         _iconImage.color = new Color(1, 1, 1, 1);
-        _iconImage.sprite = _item.ItemInfo.Icon;
+        _iconImage.sprite = item.ItemInfo.Icon;
     }
 
-    public void SetItemFrame()
+    public void SetItemFrame(Item item)
     {
-        if (_item != null)
+        if (item != null)
         {
-            switch (_item.ItemInfo.ItemType)
+            switch (item.ItemInfo.ItemType)
             {
                 case EItemType.Armor:
                     {
@@ -75,20 +73,15 @@ public class InventorySlot : MonoBehaviour
         _iconFrame.color = new Color(1, 1, 1, 0.5f);
     }
 
-    public void DropItem()
-    {
-        if (_inventoryItem)
-        {
-            _inventoryItem.SetActive(true);
-            _inventoryItem.transform.position = PlayerMouseControll.Instance.transform.position;
-            SetItem(null);
-            ShowDropDownMenu();
-        }
-    }
-
     public void ShowDropDownMenu()
     {
         _isActive = !_isActive;
-        _dropDownPanel.gameObject.SetActive(_isActive);
+        _dropDownPanel.SetActive(_isActive);
+    }
+
+    public void HideDropDownMenu()
+    {
+        _isActive = false;
+        _dropDownPanel.SetActive(_isActive);
     }
 }

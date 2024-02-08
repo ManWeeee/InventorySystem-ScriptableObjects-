@@ -1,15 +1,12 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMouseControll : MonoBehaviour
 {
-    public static PlayerMouseControll Instance;
-    [SerializeField]
-    Inventory _inventory;
+    Player _player;
+
     private void Start()
     {
-        if (Instance == null)
-            Instance = this;
+        _player = GetComponent<Player>();
     }
     void Update()
     {
@@ -25,9 +22,9 @@ public class PlayerMouseControll : MonoBehaviour
 
             if (hitCollider != null && hitCollider.TryGetComponent<Item>(out Item item))
             {
-
-                if (_inventory.AddItem(item.gameObject))
+                if (item)
                 {
+                    _player.Inventory.AddItem(item);
                     item.gameObject.SetActive(false);
                 }
             }

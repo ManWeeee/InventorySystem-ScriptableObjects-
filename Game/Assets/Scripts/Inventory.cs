@@ -1,27 +1,40 @@
+using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+[CreateAssetMenu(fileName = "New Inventory", menuName = "Assets/Inventory", order = 1)]
+public class Inventory : ScriptableObject
 {
     [SerializeField]
-    InventorySlot[] _inventory;
-    private int _inventorySize = 16;
+    List<Item> _inventory;
 
-    private void Start()
+    public Action OnInventoryChanged;
+
+    public int Count {  get { return _inventory.Count; } }
+
+    public Item this[int num]
     {
-        _inventory = new InventorySlot[_inventorySize];
-        _inventory = GetComponentsInChildren<InventorySlot>();
+        get { return _inventory[num]; }
     }
 
-    public bool AddItem(GameObject item) 
+    private void OnDisable()
     {
-        foreach (InventorySlot inventorySlot in _inventory)
+        _inventory.Clear();
+    }
+
+    public void AddItem(Item item)
+    {
+        _inventory.Add(item);
+        OnInventoryChanged?.Invoke();
+    }
+
+    public void RemoveItem(Item item)
+    {
+        if (_inventory.Contains(item))
         {
-            if (inventorySlot.Item == null)
-            {
-                inventorySlot.SetItem(item);
-                return true;
-            }
+            _inventory.Remove(item);
+            OnInventoryChanged?.Invoke();
         }
-        return false;
     }
 }
